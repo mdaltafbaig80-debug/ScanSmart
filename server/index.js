@@ -64,8 +64,8 @@ app.use(helmet({
 const ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://localhost:3000',
-    // Add your production domain here:
-    // 'https://your-production-domain.com'
+    'https://scansmart.pages.dev',
+    'https://baf3706d.scansmart.pages.dev'
 ];
 
 app.use(cors({
