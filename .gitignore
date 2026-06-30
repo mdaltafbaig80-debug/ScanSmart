@@ -1,0 +1,38 @@
+# ═══════════════════════════════════════════════════════
+# ROOT .gitignore — ScanSmart Project
+# SECURITY: Keep secrets, binaries, and build outputs out
+# ═══════════════════════════════════════════════════════
+
+# ── SECRETS (CRITICAL — never commit these) ────────────
+**/.env
+**/.env.*
+!**/.env.example
+
+# ── Dependencies (huge folders, re-installable) ────────
+**/node_modules/
+
+# ── Build outputs ──────────────────────────────────────
+**/dist/
+**/build/
+**/.vite/
+
+# ── Logs ───────────────────────────────────────────────
+**/*.log
+**/logs/
+
+# ── OS & editor files ──────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+.vscode/*.code-workspace
+
+# ── Binaries (large executables) ──────────────────────
+*.exe
+*.dmg
+
+# ── ngrok (local tunnel binary) ───────────────────────
+ngrok.exe
+ngrok
+
+# ── Misc ───────────────────────────────────────────────
+*.lock.bak

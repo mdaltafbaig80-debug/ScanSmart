@@ -1,0 +1,21 @@
+# ── Secrets & credentials ─────────────────────────────────────────────────────
+# SECURITY: NEVER commit .env files. They contain Supabase keys, JWT secrets,
+# email passwords, and other credentials that would compromise the entire system.
+.env
+.env.*
+!.env.example
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Build outputs ─────────────────────────────────────────────────────────────
+dist/
+build/
+
+# ── Logs (may contain sensitive request data) ─────────────────────────────────
+*.log
+logs/
+
+# ── OS files ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

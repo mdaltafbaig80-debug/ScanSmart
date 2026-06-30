@@ -1,0 +1,136 @@
+.success-page {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-card {
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.success-icon {
+    color: var(--success);
+    margin-bottom: var(--spacing-lg);
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-card h1 {
+    font-size: 2rem;
+    color: var(--success);
+    margin-bottom: var(--spacing-sm);
+}
+
+.success-message {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.bill-info {
+    text-align: left;
+    margin-bottom: var(--spacing-xl);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span:first-child {
+    color: var(--text-secondary);
+}
+
+.bill-id {
+    font-family: monospace;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.method {
+    font-weight: 600;
+}
+
+.info-row.discount-row span {
+    color: var(--secondary) !important;
+}
+
+.discount-value {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.info-row.total-row {
+    font-weight: 700;
+    padding-top: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    border-top: 2px solid var(--border);
+}
+
+.savings-banner {
+    text-align: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--secondary);
+    font-weight: 500;
+    margin-top: var(--spacing-md);
+}
+
+.success-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+}
+
+.home-link:hover {
+    color: var(--primary);
+}
+
+@media (max-width: 480px) {
+    .success-actions {
+        flex-direction: column;
+    }
+
+    .success-actions .btn {
+        width: 100%;
+    }
+}
