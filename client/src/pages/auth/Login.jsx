@@ -252,12 +252,7 @@ const Login = () => {
                         </div>
                     )}
 
-                    {!isForgotMode && (
-                        <div className="demo-credentials">
-                            <p><strong>Demo Admin:</strong> admin@scanmart.com / admin123</p>
-                            <p><strong>Demo User:</strong> user@scanmart.com / user123</p>
-                        </div>
-                    )}
+
                 </div>
             </div>
         </div>

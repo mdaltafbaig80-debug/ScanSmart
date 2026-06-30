@@ -301,3 +301,46 @@ exports.resetPassword = async (req, res) => {
         res.status(500).json({ message: 'Server error during password reset', error: error.message });
     }
 };
+
+// Change password (Authenticated)
+exports.changePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        
+        // 1. Get current user
+        const { data: user, error: userError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', req.userId)
+            .single();
+
+        if (userError || !user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // 2. Verify old password
+        const isMatch = await bcrypt.compare(oldPassword, user.password_hash);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Incorrect old password' });
+        }
+
+        // 3. Hash new password
+        const salt = await bcrypt.genSalt(8);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        // 4. Update in DB
+        const { error: updateError } = await supabase
+            .from('users')
+            .update({ password_hash: hashedPassword })
+            .eq('id', req.userId);
+
+        if (updateError) {
+            return res.status(500).json({ message: 'Failed to update password' });
+        }
+
+        res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('[authController.changePassword]', error.message);
+        res.status(500).json({ message: 'Server error during password change' });
+    }
+};

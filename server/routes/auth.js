@@ -6,7 +6,7 @@ const { loginLimiter, authLimiter, otpLimiter } = require('../middleware/rateLim
 const {
     validate,
     registerRules, loginRules, otpEmailRules,
-    verifyOtpRules, resetPasswordRules
+    verifyOtpRules, resetPasswordRules, changePasswordRules
 } = require('../middleware/validate');
 
 // SECURITY: All auth routes are rate-limited.
@@ -19,5 +19,6 @@ router.post('/reset-password', otpLimiter,  resetPasswordRules,  validate, authC
 
 // Protected
 router.get('/me', auth, authController.getMe);
+router.post('/change-password', auth, authLimiter, changePasswordRules, validate, authController.changePassword);
 
 module.exports = router;

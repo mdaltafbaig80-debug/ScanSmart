@@ -46,7 +46,9 @@ export const authService = {
     verifyOtp: (email, otp) =>
         api.post('/auth/verify-otp', { email, otp }),
     resetPassword: (email, otp, newPassword) =>
-        api.post('/auth/reset-password', { email, otp, newPassword })
+        api.post('/auth/reset-password', { email, otp, newPassword }),
+    changePassword: (oldPassword, newPassword) =>
+        api.post('/auth/change-password', { oldPassword, newPassword })
 };
 
 // Product services
@@ -105,6 +107,12 @@ export const discountService = {
     delete: (id) => api.delete(`/discounts/${id}`),
     toggle: (id) => api.patch(`/discounts/${id}/toggle`),
     validate: (code, cartTotal) => api.post('/discounts/validate', { code, cartTotal })
+};
+
+// Settings services
+export const settingsService = {
+    get: () => api.get('/settings'),
+    update: (data) => api.post('/settings', data)
 };
 
 export default api;

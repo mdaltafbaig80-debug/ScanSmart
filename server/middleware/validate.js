@@ -67,6 +67,11 @@ const resetPasswordRules = [
     body('newPassword').isLength({ min: 6, max: 128 }).withMessage('Password must be 6–128 characters')
 ];
 
+const changePasswordRules = [
+    body('oldPassword').notEmpty().withMessage('Old password required'),
+    body('newPassword').isLength({ min: 6, max: 128 }).withMessage('New password must be 6–128 characters')
+];
+
 // ── Product validators ────────────────────────────────────────────────────────
 const productRules = [
     body('name').trim().isLength({ min: 1, max: 100 }).withMessage('Product name required (max 100 chars)'),
@@ -149,6 +154,7 @@ module.exports = {
     otpEmailRules,
     verifyOtpRules,
     resetPasswordRules,
+    changePasswordRules,
     productRules,
     stockRules,
     addToCartRules,

@@ -1,8 +1,22 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiFacebook, FiTwitter, FiInstagram, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { settingsService } from '../services/api';
 import './Footer.css';
 
 const Footer = () => {
+    const [settings, setSettings] = useState({
+        address: '123 Smart Mall, Tech City, TC 12345',
+        phone: '+1 (555) 123-4567',
+        email: 'support@scanmart.com'
+    });
+
+    useEffect(() => {
+        settingsService.get()
+            .then(res => setSettings(res.data))
+            .catch(err => console.error('Failed to load settings:', err));
+    }, []);
+
     return (
         <footer className="footer">
             <div className="footer-container">
@@ -48,15 +62,15 @@ const Footer = () => {
                         <ul>
                             <li>
                                 <FiMapPin size={16} />
-                                <span>123 Smart Mall, Tech City, TC 12345</span>
+                                <span>{settings.address}</span>
                             </li>
                             <li>
                                 <FiPhone size={16} />
-                                <span>+1 (555) 123-4567</span>
+                                <span>{settings.phone}</span>
                             </li>
                             <li>
                                 <FiMail size={16} />
-                                <span>support@scanmart.com</span>
+                                <span>{settings.email}</span>
                             </li>
                         </ul>
                     </div>

@@ -136,6 +136,7 @@ const billRoutes     = require('./routes/bills');
 const chatbotRoutes  = require('./routes/chatbot');
 const salesRoutes    = require('./routes/sales');
 const discountRoutes = require('./routes/discounts');
+const settingsRoutes = require('./routes/settings');
 
 app.use('/api/auth',     authRoutes);
 app.use('/api/products', productRoutes);
@@ -144,6 +145,7 @@ app.use('/api/bills',    billRoutes);
 app.use('/api/chatbot',  chatbotRoutes);
 app.use('/api/sales',    salesRoutes);
 app.use('/api/discounts', discountRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // ── Health check (no sensitive info) ─────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
