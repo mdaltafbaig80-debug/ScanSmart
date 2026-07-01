@@ -89,7 +89,7 @@ exports.addProduct = async (req, res) => {
     try {
         const { name, description, price, category, stock, image, discountPercent, discountValidUntil, qrCode: customQrCode } = req.body;
 
-        const qrCode = customQrCode || `SM-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+        const qrCode = (customQrCode ? String(customQrCode).trim() : '') || `SM-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
 
         // Parallelize QR code generation and DB insert for speed
         const [qrCodeImage, dbResult] = await Promise.all([
@@ -113,7 +113,12 @@ exports.addProduct = async (req, res) => {
         ]);
 
         const { data: product, error } = dbResult;
-        if (error) return res.status(500).json({ message: 'Failed to add product', error: error.message });
+        if (error) {
+            if (error.code === '23505') {
+                return res.status(400).json({ message: 'A product with this QR/Barcode already exists.' });
+            }
+            return res.status(500).json({ message: 'Failed to add product', error: error.message });
+        }
 
         res.status(201).json({
             message: 'Product added successfully',
@@ -144,7 +149,7 @@ exports.updateProduct = async (req, res) => {
         };
 
         if (qrCode) {
-            updateData.qr_code = qrCode;
+            updateData.qr_code = String(qrCode).trim();
         }
 
         const { data: product, error } = await supabase

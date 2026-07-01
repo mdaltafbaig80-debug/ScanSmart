@@ -87,8 +87,8 @@ app.use('/api/', apiLimiter);
 app.use(compression());
 
 // ── Body parser with size limits (prevent large payload DoS) ──────────────────
-app.use(express.json({ limit: '10kb' }));        // reject bodies > 10 KB
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '5mb' }));        // reject bodies > 5 MB
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
 // ── HTTP Parameter Pollution protection ──────────────────────────────────────
 app.use(hpp());
