@@ -87,9 +87,9 @@ exports.getProductByQR = async (req, res) => {
 // Add new product (Admin)
 exports.addProduct = async (req, res) => {
     try {
-        const { name, description, price, category, stock, image, discountPercent, discountValidUntil } = req.body;
+        const { name, description, price, category, stock, image, discountPercent, discountValidUntil, qrCode: customQrCode } = req.body;
 
-        const qrCode = `SM-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+        const qrCode = customQrCode || `SM-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
 
         // Parallelize QR code generation and DB insert for speed
         const [qrCodeImage, dbResult] = await Promise.all([
@@ -128,22 +128,28 @@ exports.addProduct = async (req, res) => {
 // Update product (Admin)
 exports.updateProduct = async (req, res) => {
     try {
-        const { name, description, price, category, stock, image, isActive, discountPercent, discountValidUntil } = req.body;
+        const { name, description, price, category, stock, image, isActive, discountPercent, discountValidUntil, qrCode } = req.body;
+
+        const updateData = {
+            name,
+            description,
+            price,
+            category,
+            stock,
+            image,
+            is_active: isActive,
+            discount_percent: discountPercent,
+            discount_valid_until: discountValidUntil,
+            updated_at: new Date().toISOString()
+        };
+
+        if (qrCode) {
+            updateData.qr_code = qrCode;
+        }
 
         const { data: product, error } = await supabase
             .from('products')
-            .update({
-                name,
-                description,
-                price,
-                category,
-                stock,
-                image,
-                is_active: isActive,
-                discount_percent: discountPercent,
-                discount_valid_until: discountValidUntil,
-                updated_at: new Date().toISOString()
-            })
+            .update(updateData)
             .eq('id', req.params.id)
             .select('*')
             .single();

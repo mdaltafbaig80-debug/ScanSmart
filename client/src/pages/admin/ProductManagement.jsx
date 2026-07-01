@@ -16,6 +16,7 @@ const ProductManagement = () => {
         category: 'Groceries',
         stock: '',
         image: '',
+        qrCode: '',
         discountPercent: '',
         discountValidUntil: ''
     });
@@ -87,6 +88,7 @@ const ProductManagement = () => {
             category: 'Groceries',
             stock: '',
             image: '',
+            qrCode: '',
             discountPercent: '',
             discountValidUntil: ''
         });
@@ -102,6 +104,7 @@ const ProductManagement = () => {
             category: product.category,
             stock: product.stock.toString(),
             image: product.image,
+            qrCode: product.qrCode || '',
             discountPercent: product.discountPercent ? product.discountPercent.toString() : '',
             discountValidUntil: product.discountValidUntil ? new Date(product.discountValidUntil).toISOString().split('T')[0] : ''
         });
@@ -264,15 +267,27 @@ const ProductManagement = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    <div className="form-group">
-                                        <label className="form-label">Image URL</label>
-                                        <input
-                                            type="text"
-                                            className="form-input"
-                                            placeholder="https://example.com/image.jpg"
-                                            value={formData.image}
-                                            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                        />
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label className="form-label">Image URL</label>
+                                            <input
+                                                type="text"
+                                                className="form-input"
+                                                placeholder="https://example.com/image.jpg"
+                                                value={formData.image}
+                                                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="form-label">QR/Barcode</label>
+                                            <input
+                                                type="text"
+                                                className="form-input"
+                                                placeholder={editProduct ? "Leave unchanged to keep" : "Leave empty to auto-generate"}
+                                                value={formData.qrCode}
+                                                onChange={(e) => setFormData({ ...formData, qrCode: e.target.value })}
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Per-Item Discount Section */}
